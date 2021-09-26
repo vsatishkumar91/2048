@@ -255,9 +255,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } else {
       if (yDiff > 0) {
-        keyDown();
-      } else {
         keyUp();
+      } else {
+        keyDown();
       }
     }
     xDown = null;
