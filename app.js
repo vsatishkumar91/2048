@@ -5,6 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const highScoreDisplay = document.getElementById('highScore');
   const resultDisplay = document.getElementById('result');
 
+  document.addEventListener('touchstart', handleTouchStart, false);
+  document.addEventListener('touchmove', handleTouchMove, false);
+  var xDown = null;
+  var yDown = null;
+
   const tileColors = {
     0: 'rgb(204,192,179)',
     2: 'rgb(238,228,218)',
@@ -219,6 +224,45 @@ document.addEventListener('DOMContentLoaded', () => {
     setTileColors();
     setInterval(setTileColors, 100);
   }
+
+  function getTouches(evt) {
+    return evt.touches ||             // browser API
+      evt.originalEvent.touches; // jQuery
+  }
+
+  function handleTouchStart(evt) {
+    const firstTouch = getTouches(evt)[0];
+    xDown = firstTouch.clientX;
+    yDown = firstTouch.clientY;
+  };
+
+  function handleTouchMove(evt) {
+    if (!xDown || !yDown) {
+      return;
+    }
+
+    var xUp = evt.touches[0].clientX;
+    var yUp = evt.touches[0].clientY;
+
+    var xDiff = xDown - xUp;
+    var yDiff = yDown - yUp;
+
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+      if (xDiff > 0) {
+        keyRight();
+      } else {
+        keyLeft();
+      }
+    } else {
+      if (yDiff > 0) {
+        keyDown();
+      } else {
+        keyUp();
+      }
+    }
+    xDown = null;
+    yDown = null;
+  };
 
   window.addEventListener('keydown', e => {
     switch (e.key) {
