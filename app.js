@@ -249,9 +249,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (Math.abs(xDiff) > Math.abs(yDiff)) {
       if (xDiff > 0) {
-        keyRight();
-      } else {
         keyLeft();
+      } else {
+        keyRight();
       }
     } else {
       if (yDiff > 0) {
